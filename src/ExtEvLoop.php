@@ -70,7 +70,7 @@ class ExtEvLoop implements LoopInterface
         $this->signals = new SignalsHandler(
             $this,
             function ($signal) {
-                $this->signalEvents[$signal] = $this->loop->signal($signal, function () use ($signal) {
+                $this->signalEvents[$signal] = $this->loop->signal($signal, $f = function () use ($signal, &$f) {
                     $this->signals->call($signal);
                 });
             },

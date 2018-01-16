@@ -74,11 +74,6 @@ final class StreamSelectLoop implements LoopInterface
             function ($signal) {
                 \pcntl_signal($signal, $f = function ($signal) use (&$f) {
                     $this->signals->call($signal);
-                    // Ensure there are two copies of the callable around until it has been executed.
-                    // For more information see: https://bugs.php.net/bug.php?id=62452
-                    // Only an issue for PHP 5, this hack can be removed once PHP 5 support has been dropped.
-                    $g = $f;
-                    $f = $g;
                 });
             },
             function ($signal) {
